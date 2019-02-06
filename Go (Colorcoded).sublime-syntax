@@ -1,0 +1,29 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+name: Go (Colorcode)
+file_extensions:
+  - go
+first_line_match: '-\*- C\+\+ -\*-'
+scope: source.go
+contexts:
+  main:
+    - match: '\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\.?[0-9]*)|(\.[0-9]+))((e|E)(\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?\b'
+      scope: constant.numeric.go
+    - match: '"(\\[rnt\\"]|[^"])*"'
+      scope: string.go
+    - match: "`[^']*`"
+      scope: string.go
+    - match: "'[^']*'"
+      scope: string.go
+    - match: //.*
+      scope: comment.go
+    - match: /\*
+      push:
+        - meta_scope: comment.go
+        - match: \*/
+          pop: true
+    - match: \b(package|import|range|for|if|go|defer|func|var|_)\b
+      scope: keywords.go
+    - match: \b\w+\b
+      scope: colorize.go

@@ -1,0 +1,32 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+name: Python (Colorcode)
+file_extensions:
+  - py
+first_line_match: '^#!/.*\bpython[0-9.-]*\b'
+scope: source.python
+contexts:
+  main:
+    - match: '\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\.?[0-9]*)|(\.[0-9]+))((e|E)(\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?\b'
+      scope: constant.numeric.python
+    - match: '"""'
+      push:
+        - meta_scope: string.python
+        - match: '"""'
+          pop: true
+    - match: "'''"
+      push:
+        - meta_scope: string.python
+        - match: "'''"
+          pop: true
+    - match: '"(\\[rnt\\"]|[^"])*"'
+      scope: string.python
+    - match: "'[^']*'"
+      scope: string.python
+    - match: (#).*$\n?
+      scope: comment.python
+    - match: \b(elif|else|except|finally|for|if|try|while|with|break|continue|pass|raise|return|yield|as|assert|del|exec|print|and|in|is|not|or|global|nonlocal|def|class|import|from|self|lambda|True|False|None)\b
+      scope: keywords.python
+    - match: \b\w+\b
+      scope: colorize.python

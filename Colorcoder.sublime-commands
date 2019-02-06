@@ -1,0 +1,28 @@
+[
+  { "caption": "Colorcoder: Preferences",
+    "command": "edit_settings",
+    "args": {
+      "base_file": "${packages}/Colorcoder/Colorcoder.sublime-settings",
+      "default": "{\n\t$0\n}\n"
+    }
+  },
+  { "caption": "Colorcoder: Key Bindings",
+    "command": "edit_settings",
+    "args": {
+      "base_file": "${packages}/Colorcoder/Default.sublime-keymap",
+      "default": "[\n\t$0\n]\n"
+    }
+  },
+  { "caption": "Colorcoder: Open Readme",
+    "command": "open_file",
+    "args": {
+      "file": "${packages}/Colorcoder/README.md"
+    }
+  },
+  { "caption": "Colorcoder: Tweak Colorcode to current color scheme",
+    "command": "colorshemeemodifier"
+  },
+  { "caption": "Colorcoder: Toggle Colorcode on this view",
+    "command": "colorcodertoggler"
+  }
+]
