@@ -57,7 +57,7 @@ class colorcoder(sublime_plugin.EventListener):
 
     def on_load(self,view):
         view.settings().set('colorcode',True)
-        set = sublime.load_settings("colorcoder.sublime-settings")
+        set = sublime.load_settings("Colorcoder.sublime-settings")
         if view.file_name():
             filename = os.path.split(view.file_name())[1]
             dotp = filename.rfind('.')
@@ -98,12 +98,12 @@ class colorcoder(sublime_plugin.EventListener):
     @staticmethod
     def update_scopes():
         global scopes
-        scopes = sublime.load_settings("colorcoder.sublime-settings").get('scopes')
+        scopes = sublime.load_settings("Colorcoder.sublime-settings").get('scopes')
 
     @staticmethod
     def update_use_textcommand():
         global use_textcommand
-        use_textcommand = sublime.load_settings("colorcoder.sublime-settings").get('use_fast_highlighting_but_undo_typing_letterwise')
+        use_textcommand = sublime.load_settings("Colorcoder.sublime-settings").get('use_fast_highlighting_but_undo_typing_letterwise')
 
     def on_post_text_command(self, view, cmd, args):
         if cmd=="set_file_type":
@@ -146,7 +146,7 @@ class colorcodertoggler(sublime_plugin.ApplicationCommand):
         if cc:
             colorcoder.remove_colorcode(view)
         else:
-            if view.size() > sublime.load_settings("colorcoder.sublime-settings").get('max_size'):
+            if view.size() > sublime.load_settings("Colorcoder.sublime-settings").get('max_size'):
                 view.settings().set('forcecolorcode',True)
             view.run_command("colorcode")
 
@@ -155,7 +155,7 @@ class colorcodertoggler(sublime_plugin.ApplicationCommand):
         return viewset.get('colorcode',False) or viewset.get('forcecolorcode',False)
 
     def description(self):
-        if sublime.active_window().active_view().size() > sublime.load_settings("colorcoder.sublime-settings").get('max_size'):
+        if sublime.active_window().active_view().size() > sublime.load_settings("Colorcoder.sublime-settings").get('max_size'):
             return "Colorcoding may hurt performance, File is large"
         else:
             return "Colorcode this view"
@@ -164,18 +164,18 @@ modification_running = False
 
 class colorshemeemodifier(sublime_plugin.ApplicationCommand):
     def run(self):
-        sublime.active_window().show_input_panel("Lightness and Saturation","%s %s"%(sublime.load_settings("colorcoder.sublime-settings").get('lightness'),sublime.load_settings("colorcoder.sublime-settings").get('saturation')),self.panel_callback,None,None)
+        sublime.active_window().show_input_panel("Lightness and Saturation","%s %s"%(sublime.load_settings("Colorcoder.sublime-settings").get('lightness'),sublime.load_settings("Colorcoder.sublime-settings").get('saturation')),self.panel_callback,None,None)
 
     def panel_callback(self, text):
         (l,s)= map(float,text.split(' '))
-        sublime.load_settings("colorcoder.sublime-settings").set('lightness',l)
-        sublime.load_settings("colorcoder.sublime-settings").set('saturation',s)
-        sublime.save_settings("colorcoder.sublime-settings")
+        sublime.load_settings("Colorcoder.sublime-settings").set('lightness',l)
+        sublime.load_settings("Colorcoder.sublime-settings").set('saturation',s)
+        sublime.save_settings("Colorcoder.sublime-settings")
         colorshemeemodifier.modify_color_scheme(l,s,True)
 
     @staticmethod
     def maybefixscheme():
-        set = sublime.load_settings("colorcoder.sublime-settings")
+        set = sublime.load_settings("Colorcoder.sublime-settings")
         if set.get('auto_apply_on_scheme_change'):
             if sublime.load_settings("Preferences.sublime-settings").get('color_scheme').find('/Colorcoder/') == -1:
                 colorshemeemodifier.modify_color_scheme(set.get('lightness'),set.get('saturation'))
@@ -248,8 +248,8 @@ class colorcoderInspectScope(sublime_plugin.ApplicationCommand):
 
 def plugin_loaded():
     sublime.load_settings("Preferences.sublime-settings").add_on_change('color_scheme',colorshemeemodifier.maybefixscheme)
-    sublime.load_settings("colorcoder.sublime-settings").add_on_change('scopes',colorcoder.update_scopes)
-    sublime.load_settings("colorcoder.sublime-settings").add_on_change('use_textcommand',colorcoder.update_use_textcommand)
+    sublime.load_settings("Colorcoder.sublime-settings").add_on_change('scopes',colorcoder.update_scopes)
+    sublime.load_settings("Colorcoder.sublime-settings").add_on_change('use_textcommand',colorcoder.update_use_textcommand)
     colorcoder.update_scopes()
     colorcoder.update_use_textcommand()
     pp = sublime.packages_path()
