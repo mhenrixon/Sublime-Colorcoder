@@ -20,9 +20,9 @@
     }
   },
   { "caption": "Colorcoder: Tweak Colorcode to current color scheme",
-    "command": "colorshemeemodifier"
+    "command": "colorcoder_sheme_modifier"
   },
   { "caption": "Colorcoder: Toggle Colorcode on this view",
-    "command": "colorcodertoggler"
+    "command": "colorcoder_toggler"
   }
 ]

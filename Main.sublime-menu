@@ -3,7 +3,7 @@
 		"caption": "",
     "children": [
       { "id": "syntax" },
-      { "command": "colorcodertoggler" }
+      { "command": "colorcoder_toggler" }
     ]
   },
   { "id": "tools",
@@ -14,7 +14,7 @@
         "children": [
           {
             "caption": "Tweak Colorcode on current color scheme",
-            "command": "colorshemeemodifier"
+            "command": "colorcoder_sheme_modifier"
           }
         ]
       }

@@ -136,7 +136,7 @@ class colorcode(sublime_plugin.TextCommand):
         colorcoder.colorcode(self.view)
 
 
-class colorcodertoggler(sublime_plugin.ApplicationCommand):
+class colorcoder_toggler(sublime_plugin.ApplicationCommand):
     def run(self):
         view = sublime.active_window().active_view()
         cc = view.settings().get('colorcode',False)
@@ -162,7 +162,7 @@ class colorcodertoggler(sublime_plugin.ApplicationCommand):
 
 modification_running = False
 
-class colorshemeemodifier(sublime_plugin.ApplicationCommand):
+class colorcoder_sheme_modifier(sublime_plugin.ApplicationCommand):
     def run(self):
         sublime.active_window().show_input_panel("Lightness and Saturation","%s %s"%(sublime.load_settings("Colorcoder.sublime-settings").get('lightness'),sublime.load_settings("Colorcoder.sublime-settings").get('saturation')),self.panel_callback,None,None)
 
@@ -171,14 +171,14 @@ class colorshemeemodifier(sublime_plugin.ApplicationCommand):
         sublime.load_settings("Colorcoder.sublime-settings").set('lightness',l)
         sublime.load_settings("Colorcoder.sublime-settings").set('saturation',s)
         sublime.save_settings("Colorcoder.sublime-settings")
-        colorshemeemodifier.modify_color_scheme(l,s,True)
+        colorcoder_sheme_modifier.modify_color_scheme(l,s,True)
 
     @staticmethod
     def maybefixscheme():
         set = sublime.load_settings("Colorcoder.sublime-settings")
         if set.get('auto_apply_on_scheme_change'):
             if sublime.load_settings("Preferences.sublime-settings").get('color_scheme').find('/Colorcoder/') == -1:
-                colorshemeemodifier.modify_color_scheme(set.get('lightness'),set.get('saturation'))
+                colorcoder_sheme_modifier.modify_color_scheme(set.get('lightness'),set.get('saturation'))
 
     @staticmethod
     def modify_color_scheme(l,s,read_original = False):
@@ -247,7 +247,7 @@ class colorcoderInspectScope(sublime_plugin.ApplicationCommand):
         sublime.active_window().run_command("show_panel", {"panel": "console", "toggle": True})
 
 def plugin_loaded():
-    sublime.load_settings("Preferences.sublime-settings").add_on_change('color_scheme',colorshemeemodifier.maybefixscheme)
+    sublime.load_settings("Preferences.sublime-settings").add_on_change('color_scheme',colorcoder_sheme_modifier.maybefixscheme)
     sublime.load_settings("Colorcoder.sublime-settings").add_on_change('scopes',colorcoder.update_scopes)
     sublime.load_settings("Colorcoder.sublime-settings").add_on_change('use_textcommand',colorcoder.update_use_textcommand)
     colorcoder.update_scopes()
@@ -258,7 +258,7 @@ def plugin_loaded():
 
     firstrunfile = pp+"/Colorcoder/firstrun"
     if not os.path.exists(firstrunfile):
-        colorshemeemodifier.maybefixscheme()
+        colorcoder_sheme_modifier.maybefixscheme()
         open(firstrunfile, 'a').close()
 
     for wnd in sublime.windows():
